@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+    <title>Pneumonia Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        input,
+        select,
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 300px;
+            border: 2px solid black;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<div class="navbar bg-base-100">
+    <a class="btn btn-ghost text-xl">Pneumonia Detection</a>
+  </div>
+<body>
+    
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" class="file-input file-input-bordered w-full max-w-xs" required />
+        <br>
+        <br>
+        <br>
+        <select name="model" class="btn btn-neutral">
+            {% for model in models %}
+            <option value="{{ model }}" {% if model==selected_model %}selected{% endif %}>{{ model }}</option>
+            {% endfor %}
+        </select> &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <button type="submit" class="btn btn-neutral">Upload & Predict</button>
+    </form>
+    
+
+    {% if image_url %}
+    <h2>Uploaded Image:</h2>
+    <img src="{{ image_url }}" alt="Uploaded Image">
+    <div class="result">
+        <p>Prediction: <strong>{{ result }}</strong></p>
+    </div>
+    {% endif %}
+</body>
+
+</html>
